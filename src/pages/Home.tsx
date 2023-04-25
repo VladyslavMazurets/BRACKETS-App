@@ -1,20 +1,34 @@
+/* eslint-disable max-len */
+/* eslint-disable react/jsx-no-comment-textnodes */
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-import CharactersCards from '../components/CharactersCards';
+import Img from '../assets/imgs/characters.jpg';
 
 function Home() {
   return (
-    <>
-      <div
-        className="bg-[url('/src/assets/imgs/stars-bg.jpg')] bg-center
-        bg-no-repeat bg-cover h-max w-full flex justify-center"
+    <div
+      className="bg-[url('/src/assets/imgs/stars-bg.jpg')] bg-center
+    bg-no-repeat bg-cover h-[84vh] w-full flex justify-center items-center"
+    >
+      <Link
+        to="/pages/1"
+        className="flex flex-col items-center bg-zinc-900 pt-8 px-6 rounded-xl
+        text-yellow-400 hover:bg-zinc-800 hover:text-white"
       >
-        <div className="flex flex-col items-center w-[90%]">
-          <span className="text-red-800">Pagination</span>
-          <CharactersCards />
-        </div>
-      </div>
-    </>
+        <img
+          src={Img}
+          alt="Characters-Img"
+          className="w-[600px] h-[350px] object-cover"
+        />
+        <span
+          className="text-3xl font-raleway font-semibold 
+        py-4"
+        >
+          Star Wars Characters
+        </span>
+      </Link>
+    </div>
   );
 }
 

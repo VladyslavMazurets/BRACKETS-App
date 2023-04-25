@@ -9,7 +9,8 @@ export const store = configureStore({
     [charactersSlice.name]: charactersSlice.reducer,
   },
 
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(swapi.middleware),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(swapi.middleware),
 });
 
 export type RootType = ReturnType<typeof store.getState>;

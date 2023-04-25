@@ -1,13 +1,15 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import { useGetApiDataQuery } from '../store/api/swapi';
 import { Result } from '../models/models';
 
 function CharactersCards() {
+  const { id } = useParams();
+
   const dispatch = useDispatch();
-  const { data } = useGetApiDataQuery('people/?page=8');
+  const { data } = useGetApiDataQuery(`people/?page=${id}`);
 
   return (
     <>
@@ -20,7 +22,9 @@ function CharactersCards() {
             bg-zinc-900 pt-8 px-6 rounded-xl hover:bg-zinc-800 hover:text-white"
           >
             <img
-              src={`https://starwars-visualguide.com/assets/img/characters/${item.url.split('/')[5]}.jpg`}
+              src={`https://starwars-visualguide.com/assets/img/characters/${
+                item.url.split('/')[5]
+              }.jpg`}
               alt="Character-Avatar"
               className="w-[250px] h-[400px] object-cover hover:scale-105"
             />
@@ -33,7 +37,7 @@ function CharactersCards() {
           </Link>
         ))}
       </div>
-      {console.log(data?.results)}
+      {console.log(data)}
     </>
   );
 }
