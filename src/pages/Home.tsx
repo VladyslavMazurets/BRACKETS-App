@@ -22,7 +22,7 @@ function Home() {
           className="w-[600px] h-[350px] object-cover"
         />
         <span
-          className="text-3xl font-raleway font-semibold 
+          className="text-4xl font-raleway font-semibold 
         py-4"
         >
           Star Wars Characters

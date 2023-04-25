@@ -37,7 +37,6 @@ function CharactersCards() {
           </Link>
         ))}
       </div>
-      {console.log(data)}
     </>
   );
 }
