@@ -4,19 +4,23 @@ import { Link, useParams } from 'react-router-dom';
 
 import { useGetApiDataQuery } from '../store/api/swapi';
 import { Result } from '../models/models';
+import { charactersSliceAction } from '../store/reducers/charactersSlice';
+import { RootDispatch } from '../store/store';
 
 function CharactersCards() {
   const { id } = useParams();
 
-  const dispatch = useDispatch();
-  const { data } = useGetApiDataQuery(`people/?page=${id}`);
+  const dispatch = useDispatch<RootDispatch>();
+  const { data, isSuccess } = useGetApiDataQuery(`people/?page=${id}`);
+
+  isSuccess && dispatch(charactersSliceAction.saveCharactersData(data.results));
 
   return (
     <>
       <div className="flex flex-wrap justify-between gap-10">
         {data?.results.map((item: Result) => (
           <Link
-            to="/"
+            to={`/character/${item.url.split('/')[5]}`}
             key={item.url.split('/')[5]}
             className="flex flex-col items-center text-yellow-400
             bg-zinc-900 pt-8 px-6 rounded-xl hover:bg-zinc-800 hover:text-white"

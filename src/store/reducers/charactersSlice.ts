@@ -9,7 +9,13 @@ export const charactersSlice = createSlice({
   initialState,
   reducers: {
     saveCharactersData(state, action: PayloadAction<Result[]>) {
-      return (state = action.payload);
+      const newItems = action.payload.filter(
+        (item) =>
+          !state.find(
+            (person) => person.url.split('/')[5] === item.url.split('/')[5]
+          )
+      );
+      state.push(...newItems);
     },
   },
 });

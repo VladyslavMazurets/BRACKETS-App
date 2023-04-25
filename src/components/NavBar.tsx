@@ -6,8 +6,11 @@ import Logo from '../assets/imgs/star-wars-logo.png';
 function NavBar() {
   return (
     <>
-      <div className="bg-black w-full h-max border-b-[1.5px] border-yellow-600">
-        <Link to="/" className="flex justify-center py-6">
+      <div
+        className="flex justify-center bg-black w-full h-max 
+      border-b-[1.5px] border-yellow-500"
+      >
+        <Link to="/" className="py-6 w-max">
           <img src={Logo} alt="Star-Wars" className="w-[300px]" />
         </Link>
       </div>
