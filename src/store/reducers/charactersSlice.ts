@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { Result } from '../../models/models';
+import { IPerson } from '../../models/models';
 
-const initialState: Result[] = [];
+const initialState: IPerson[] = [];
 
 export const charactersSlice = createSlice({
   name: 'characters',
   initialState,
   reducers: {
-    saveCharactersData(state, action: PayloadAction<Result[]>) {
+    saveCharactersData(state, action: PayloadAction<IPerson[]>) {
       const newItems = action.payload.filter(
         (item) =>
           !state.find(

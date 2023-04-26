@@ -2,8 +2,8 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 
-import { useGetApiDataQuery } from '../store/api/swapi';
-import { Result } from '../models/models';
+import { useGetCharactersDataQuery } from '../store/api/swapi';
+import { IPerson } from '../models/models';
 import { charactersSliceAction } from '../store/reducers/charactersSlice';
 import { RootDispatch } from '../store/store';
 
@@ -11,14 +11,18 @@ function CharactersCards() {
   const { id } = useParams();
 
   const dispatch = useDispatch<RootDispatch>();
-  const { data, isSuccess } = useGetApiDataQuery(`people/?page=${id}`);
+  const { data, isSuccess } = useGetCharactersDataQuery(`people/?page=${id}`);
 
-  isSuccess && dispatch(charactersSliceAction.saveCharactersData(data.results));
+  React.useEffect(() => {
+    if (isSuccess) {
+      dispatch(charactersSliceAction.saveCharactersData(data.results));
+    }
+  }, [data]);
 
   return (
     <>
       <div className="flex flex-wrap justify-between gap-10">
-        {data?.results.map((item: Result) => (
+        {data?.results.map((item: IPerson) => (
           <Link
             to={`/character/${item.url.split('/')[5]}`}
             key={item.url.split('/')[5]}

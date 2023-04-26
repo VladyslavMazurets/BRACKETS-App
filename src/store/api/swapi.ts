@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { Root } from '../../models/models';
+import { IPerson, IPlanet, Root } from '../../models/models';
 
 export const swapi = createApi({
   reducerPath: 'swapi',
@@ -8,7 +8,14 @@ export const swapi = createApi({
     baseUrl: 'https://swapi.py4e.com/api/',
   }),
   endpoints: (build) => ({
-    getApiData: build.query<Root, string>({
+    getCharactersData: build.query<Root<IPerson>, string>({
+      query: (url) => {
+        return {
+          url,
+        };
+      },
+    }),
+    getPlanetsData: build.query<Root<IPlanet>, string>({
       query: (url) => {
         return {
           url,
@@ -18,4 +25,4 @@ export const swapi = createApi({
   }),
 });
 
-export const { useGetApiDataQuery } = swapi;
+export const { useGetCharactersDataQuery, useGetPlanetsDataQuery } = swapi;

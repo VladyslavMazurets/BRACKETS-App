@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { RootType } from '../store/store';
+import CharacterDescription from '../components/CharacterDescription';
 
 function AboutCharacter() {
   const { id } = useParams<string>();
@@ -23,43 +24,20 @@ function AboutCharacter() {
             }.jpg`}
             alt="Character-Avatar"
           />
-          <div className="flex flex-col text-white bg-yellow-600">
-            <p>
-              Name: <span>{character?.name}</span>
-            </p>
-            <p>
-              Birth Year: <span>{character?.birth_year}</span>
-            </p>
-            <p>
-              Height: <span>{character?.height}</span>
-            </p>
-            <p>
-              Mass: <span>{character?.mass}</span>
-            </p>
-            <p>
-              Gender: <span>{character?.gender}</span>
-            </p>
-            <p>
-              Hair Color: <span>{character?.hair_color}</span>
-            </p>
-            <p>
-              Eye Color: <span>{character?.eye_color}</span>
-            </p>
-            <p>
-              Skin Color: <span>{character?.skin_color}</span>
-            </p>
-            <p>
-              Homeworld: <span>{character?.homeworld}</span>
-            </p>
-          </div>
+          <CharacterDescription />
           <div className="flex flex-col text-white">
-            <div>Related Films</div>
+            <div>
+              Related Films
+              <div>
+                <img src="" alt="Films_Img" />
+                <p>Films Name</p>
+              </div>
+            </div>
             <div>Related Vehicles</div>
             <div>Related Starships</div>
           </div>
         </div>
       </div>
-      {console.log(character)}
     </>
   );
 }
