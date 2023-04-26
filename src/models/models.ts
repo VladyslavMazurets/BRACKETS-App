@@ -34,6 +34,41 @@ export interface IPlanet {
   url: string;
 }
 
+export interface ISpecies {
+  name: string;
+  classification: string;
+  designation: string;
+  average_height: string;
+  skin_colors: string;
+  hair_colors: string;
+  eye_colors: string;
+  average_lifespan: string;
+  homeworld: string;
+  language: string;
+  people: string[];
+  films: string[];
+  created: string;
+  edited: string;
+  url: string;
+}
+
+export interface IFilms {
+  title: string;
+  episode_id: number;
+  opening_crawl: string;
+  director: string;
+  producer: string;
+  release_date: string;
+  characters: string[];
+  planets: string[];
+  starships: string[];
+  vehicles: string[];
+  species: string[];
+  created: string;
+  edited: string;
+  url: string;
+}
+
 export interface Root<T> {
   count: number;
   next: string;

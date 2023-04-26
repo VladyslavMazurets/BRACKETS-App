@@ -4,27 +4,25 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { RootType } from '../store/store';
-import { useGetPlanetsDataQuery } from '../store/api/swapi';
+import {
+  useGetPlanetsDataQuery,
+  useGetSpeciesDataQuery,
+} from '../store/api/swapi';
+import { IPerson } from '../models/models';
 
-function CharacterDescription() {
-  const [homeworld, setHomeWorld] = useState<string>();
-  const [species, setSpecies] = useState<string>();
-  const { id } = useParams();
+interface ICharacterDes {
+  character: IPerson;
+  homeworld: string;
+  species: string;
+}
 
-  const character = useSelector((state: RootType) =>
-    state.characters.find((element) => element.url.split('/')[5] === id)
-  );
-
-  const getAnotherData = () => {
-    character?.species.map((item) => setSpecies(item.split('/')[5]));
-    setHomeWorld(character?.homeworld.split('/')[5]);
-  };
-
+function CharacterDescription({
+  homeworld,
+  species,
+  character,
+}: ICharacterDes) {
   const { data: planet } = useGetPlanetsDataQuery(`planets/${homeworld}/`);
-
-  useEffect(() => {
-    getAnotherData();
-  }, []);
+  const { data: speciesData } = useGetSpeciesDataQuery(`species/${species}`);
 
   return (
     <>
@@ -36,7 +34,7 @@ function CharacterDescription() {
           Birth Year: <span>{character?.birth_year}</span>
         </p>
         <p>
-          Species: <span>{character?.species}</span>
+          Species: <span>{speciesData?.name}</span>
         </p>
         <p>
           Height: <span>{character?.height}</span>
@@ -56,11 +54,10 @@ function CharacterDescription() {
         <p>
           Skin Color: <span>{character?.skin_color}</span>
         </p>
-        {/* <p>
+        <p>
           Homeworld: <span>{planet?.name}</span>
-        </p> */}
+        </p>
       </div>
-      {console.log('Hello')}
     </>
   );
 }

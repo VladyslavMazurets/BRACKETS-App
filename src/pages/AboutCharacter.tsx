@@ -1,15 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { RootType } from '../store/store';
 import CharacterDescription from '../components/CharacterDescription';
+import { useGetFilmsDataQuery } from '../store/api/swapi';
+import FilmsList from '../components/FilmsList';
 
 function AboutCharacter() {
+  const [homeworld, setHomeWorld] = useState<string>();
+  const [species, setSpecies] = useState<string>();
+  const [allFilms, setAllFilms] = useState<string[]>([]);
+
   const { id } = useParams<string>();
   const character = useSelector((state: RootType) =>
     state.characters.find((element) => element.url.split('/')[5] === id)
   );
+
+  const getAnotherData = () => {
+    character?.species.map((item) => setSpecies(item.split('/')[5]));
+    setHomeWorld(character?.homeworld.split('/')[5]);
+    const getAllFilms = character?.films.map((item) => item.split('/')[5]);
+    setAllFilms(getAllFilms!);
+  };
+
+  useEffect(() => {
+    getAnotherData();
+  }, [character]);
 
   return (
     <>
@@ -24,13 +41,18 @@ function AboutCharacter() {
             }.jpg`}
             alt="Character-Avatar"
           />
-          <CharacterDescription />
+          <CharacterDescription
+            homeworld={homeworld!}
+            species={species!}
+            character={character!}
+          />
           <div className="flex flex-col text-white">
-            <div>
-              Related Films
-              <div>
-                <img src="" alt="Films_Img" />
-                <p>Films Name</p>
+            <div className="flex flex-col bg-yellow-600">
+              <span>Related Films</span>
+              <div className="flex">
+                {allFilms.map((item) => (
+                  <FilmsList key={item} item={item} />
+                ))}
               </div>
             </div>
             <div>Related Vehicles</div>

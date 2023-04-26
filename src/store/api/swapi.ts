@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { IPerson, IPlanet, Root } from '../../models/models';
+import { IFilms, IPerson, IPlanet, ISpecies, Root } from '../../models/models';
 
 export const swapi = createApi({
   reducerPath: 'swapi',
@@ -15,7 +15,21 @@ export const swapi = createApi({
         };
       },
     }),
-    getPlanetsData: build.query<Root<IPlanet>, string>({
+    getPlanetsData: build.query<IPlanet, string>({
+      query: (url) => {
+        return {
+          url,
+        };
+      },
+    }),
+    getSpeciesData: build.query<ISpecies, string>({
+      query: (url) => {
+        return {
+          url,
+        };
+      },
+    }),
+    getFilmsData: build.query<IFilms, string>({
       query: (url) => {
         return {
           url,
@@ -25,4 +39,9 @@ export const swapi = createApi({
   }),
 });
 
-export const { useGetCharactersDataQuery, useGetPlanetsDataQuery } = swapi;
+export const {
+  useGetCharactersDataQuery,
+  useGetPlanetsDataQuery,
+  useGetSpeciesDataQuery,
+  useGetFilmsDataQuery,
+} = swapi;
