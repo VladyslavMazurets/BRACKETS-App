@@ -20,7 +20,6 @@ function FilmsList({ item }: IItem) {
         />
         <p>{films?.title}</p>
       </div>
-      {console.log(films)}
     </>
   );
 }
