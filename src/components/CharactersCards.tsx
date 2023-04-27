@@ -1,28 +1,17 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import { useGetCharactersDataQuery } from '../store/api/swapi';
 import { IPerson } from '../models/models';
-import { charactersSliceAction } from '../store/reducers/charactersSlice';
-import { RootDispatch } from '../store/store';
 
-function CharactersCards() {
-  const { id } = useParams();
+interface IResult {
+  results: IPerson[];
+}
 
-  const dispatch = useDispatch<RootDispatch>();
-  const { data, isSuccess } = useGetCharactersDataQuery(`people/?page=${id}`);
-
-  React.useEffect(() => {
-    if (isSuccess) {
-      dispatch(charactersSliceAction.saveCharactersData(data.results));
-    }
-  }, [data]);
-
+function CharactersCards({ results }: IResult) {
   return (
     <>
       <div className="flex flex-wrap justify-between gap-10">
-        {data?.results.map((item: IPerson) => (
+        {results?.map((item: IPerson) => (
           <Link
             to={`/character/${item.url?.split('/')[5]}`}
             key={item.url?.split('/')[5]}

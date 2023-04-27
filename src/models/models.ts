@@ -1,3 +1,11 @@
+export interface ILocation {
+  pathname: string;
+  search: string;
+  hash: string;
+  state: any;
+  key: string;
+}
+
 export interface IPerson {
   name: string;
   height: string;

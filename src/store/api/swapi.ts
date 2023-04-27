@@ -58,6 +58,13 @@ export const swapi = createApi({
         };
       },
     }),
+    getSearchData: build.query<any, string>({
+      query: (url) => {
+        return {
+          url,
+        };
+      },
+    }),
   }),
 });
 
@@ -68,4 +75,5 @@ export const {
   useGetFilmsDataQuery,
   useGetVehiclesDataQuery,
   useGetStarshipsDataQuery,
+  useGetSearchDataQuery,
 } = swapi;

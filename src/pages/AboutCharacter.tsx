@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate, NavigateFunction } from 'react-router-dom';
 
 import { RootType } from '../store/store';
 import CharacterDescription from '../components/CharacterDescription';
@@ -22,6 +22,8 @@ function AboutCharacter() {
   const [allStarships, setAllStarships] = useState<string[]>([]);
 
   const { id } = useParams<string>();
+  const navigate: NavigateFunction = useNavigate();
+
   const character = useSelector((state: RootType) =>
     state.characters.find((element) => element.url.split('/')[5] === id)
   );
@@ -52,9 +54,17 @@ function AboutCharacter() {
     <>
       <div
         className="bg-[url('/src/assets/imgs/stars-bg.jpg')] bg-center
-        bg-no-repeat bg-cover h-max w-full flex justify-center items-center"
+        bg-no-repeat bg-cover h-max w-full flex flex-col justify-center 
+        items-center"
       >
-        <div className="flex justify-between w-[95%] h-full py-10">
+        <button
+          onClick={() => navigate(-1)}
+          className="text-black text-2xl font-raleway font-bold bg-yellow-400
+          rounded-2xl px-6 py-1 mt-2"
+        >
+          Back
+        </button>
+        <div className="flex justify-between w-[95%] h-full py-4">
           <img
             src={`https://starwars-visualguide.com/assets/img/characters/${
               character?.url.split('/')[5]

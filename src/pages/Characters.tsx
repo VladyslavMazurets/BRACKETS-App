@@ -1,8 +1,11 @@
-/* eslint-disable max-len */
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { SlArrowRight, SlArrowLeft } from 'react-icons/sl';
+import { useDispatch } from 'react-redux';
 
+import { RootDispatch } from '../store/store';
+import { useGetCharactersDataQuery } from '../store/api/swapi';
+import { charactersSliceAction } from '../store/reducers/charactersSlice';
 import CharactersCards from '../components/CharactersCards';
 
 const arrowStyle =
@@ -11,6 +14,14 @@ const arrowStyle =
 function Characters() {
   const { id } = useParams<string>();
 
+  const dispatch = useDispatch<RootDispatch>();
+  const { data, isSuccess } = useGetCharactersDataQuery(`people/?page=${id}`);
+
+  React.useEffect(() => {
+    if (isSuccess) {
+      dispatch(charactersSliceAction.saveCharactersData(data.results));
+    }
+  }, []);
   return (
     <>
       <div
@@ -36,7 +47,7 @@ function Characters() {
             )}
           </div>
 
-          <CharactersCards />
+          {data && data.results && <CharactersCards results={data.results} />}
         </div>
       </div>
     </>
