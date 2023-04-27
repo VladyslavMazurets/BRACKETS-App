@@ -21,7 +21,7 @@ function Characters() {
     if (isSuccess) {
       dispatch(charactersSliceAction.saveCharactersData(data.results));
     }
-  }, []);
+  }, [data]);
   return (
     <>
       <div

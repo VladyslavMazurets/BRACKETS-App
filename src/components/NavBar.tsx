@@ -21,7 +21,8 @@ function NavBar() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    search.length === 0 && navigate('/search', { replace: true });
+    search.length !== 0 && navigate('/search', { replace: true });
+    location.pathname !== '/search' && setSearch('');
 
     const timer = setTimeout(() => {
       dispatch(searchSliceAction.saveSearchData(search));
@@ -53,6 +54,7 @@ function NavBar() {
           </form>
 
           <button
+            onClick={() => setSearch('')}
             className="text-4xl 
         text-yellow-400 hover:text-white"
           >
