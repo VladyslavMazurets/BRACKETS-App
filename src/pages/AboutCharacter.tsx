@@ -4,10 +4,15 @@ import { useParams } from 'react-router-dom';
 
 import { RootType } from '../store/store';
 import CharacterDescription from '../components/CharacterDescription';
-import { useGetFilmsDataQuery } from '../store/api/swapi';
 import FilmsList from '../components/FilmsList';
 import VehiclesList from '../components/VehiclesList';
 import StarshipsList from '../components/StarshipsList';
+
+const titleStyle = `text-3xl text-black font-bold font-droid pb-1 mb-3 
+  border-b-2 border-yellow-500`;
+const relatedStyle = 'flex flex-col text-center bg-white mb-2 last:m-0';
+const noImgStyle = `text-black text-2xl font-droid font-semibold py-10
+  text-center`;
 
 function AboutCharacter() {
   const [homeworld, setHomeWorld] = useState<string>();
@@ -49,22 +54,22 @@ function AboutCharacter() {
         className="bg-[url('/src/assets/imgs/stars-bg.jpg')] bg-center
         bg-no-repeat bg-cover h-max w-full flex justify-center items-center"
       >
-        <div className="flex justify-between w-[85%] h-full py-10">
+        <div className="flex justify-between w-[95%] h-full py-10">
           <img
             src={`https://starwars-visualguide.com/assets/img/characters/${
               character?.url.split('/')[5]
             }.jpg`}
             alt="Character-Avatar"
-            className="h-[700px] object-cover"
+            className="h-[700px] object-cover bg-white p-1"
           />
           <CharacterDescription
             homeworld={homeworld!}
             species={species!}
             character={character!}
           />
-          <div className="flex flex-col justify-between w-[45%] text-white">
-            <div className="bg-yellow-600">
-              <p>Related Films</p>
+          <div className="flex flex-col justify-between w-[50%] text-white">
+            <div className={relatedStyle}>
+              <p className={titleStyle}>Related Films</p>
               <div className="flex">
                 {allFilms.map((item) => (
                   <FilmsList key={item} item={item} />
@@ -72,30 +77,38 @@ function AboutCharacter() {
               </div>
             </div>
 
-            <div className="bg-yellow-600">
-              <p>Related Vehicles</p>
-              <div className="flex">
+            <div className={relatedStyle}>
+              <p className={titleStyle}>Related Vehicles</p>
+              <div
+                className={`flex ${
+                  allVehicles.length == 0 && 'justify-center'
+                }`}
+              >
                 {allVehicles.length !== 0 ? (
                   allVehicles.map((item) => (
                     <VehiclesList key={item} item={item} />
                   ))
                 ) : (
-                  <p className="text-black">
+                  <p className={noImgStyle}>
                     There are no related items for this category
                   </p>
                 )}
               </div>
             </div>
 
-            <div className="bg-yellow-600">
-              <p>Related Starships</p>
-              <div className="flex">
+            <div className={relatedStyle}>
+              <p className={titleStyle}>Related Starships</p>
+              <div
+                className={`flex ${
+                  allVehicles.length == 0 && 'justify-center'
+                }`}
+              >
                 {allStarships.length !== 0 ? (
                   allStarships.map((item) => (
                     <StarshipsList key={item} item={item} />
                   ))
                 ) : (
-                  <p className="text-black">
+                  <p className={noImgStyle}>
                     There are no related items for this category
                   </p>
                 )}

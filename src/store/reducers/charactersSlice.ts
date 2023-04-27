@@ -2,7 +2,10 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { IPerson } from '../../models/models';
 
-const initialState: IPerson[] = [];
+const savedCharacters = JSON.parse(
+  localStorage.getItem('characters') || '[]'
+) as IPerson[];
+const initialState: IPerson[] = savedCharacters;
 
 export const charactersSlice = createSlice({
   name: 'characters',
@@ -15,7 +18,10 @@ export const charactersSlice = createSlice({
             (person) => person.url.split('/')[5] === item.url.split('/')[5]
           )
       );
+
       state.push(...newItems);
+
+      localStorage.setItem('characters', JSON.stringify(state));
     },
   },
 });

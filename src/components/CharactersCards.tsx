@@ -24,14 +24,14 @@ function CharactersCards() {
       <div className="flex flex-wrap justify-between gap-10">
         {data?.results.map((item: IPerson) => (
           <Link
-            to={`/character/${item.url.split('/')[5]}`}
-            key={item.url.split('/')[5]}
+            to={`/character/${item.url?.split('/')[5]}`}
+            key={item.url?.split('/')[5]}
             className="flex flex-col items-center text-yellow-400
             bg-zinc-900 pt-8 px-6 rounded-xl hover:bg-zinc-800 hover:text-white"
           >
             <img
               src={`https://starwars-visualguide.com/assets/img/characters/${
-                item.url.split('/')[5]
+                item.url?.split('/')[5]
               }.jpg`}
               alt="Character-Avatar"
               className="w-[250px] h-[400px] object-cover hover:scale-105"
