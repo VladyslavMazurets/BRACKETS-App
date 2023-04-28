@@ -8,9 +8,10 @@ import FilmsList from '../components/FilmsList';
 import VehiclesList from '../components/VehiclesList';
 import StarshipsList from '../components/StarshipsList';
 
-const titleStyle = `text-3xl text-black font-bold font-droid pb-1 mb-3 
+const titleStyle = `text-3xl text-black font-bold font-droid py-1 mb-3 
   border-b-2 border-yellow-500`;
-const relatedStyle = 'flex flex-col text-center bg-white mb-2 last:m-0';
+const relatedStyle = `flex flex-col text-center bg-zinc-100 rounded-2xl mb-2 
+last:m-0`;
 const noImgStyle = `text-black text-2xl font-droid font-semibold py-10
   text-center`;
 
@@ -54,30 +55,30 @@ function AboutCharacter() {
     <>
       <div
         className="bg-[url('/src/assets/imgs/stars-bg.jpg')] bg-center
-        bg-no-repeat bg-cover h-max w-full flex flex-col justify-center 
+        bg-no-repeat bg-cover h-[83.8vh] w-full flex flex-col justify-center 
         items-center"
       >
         <button
           onClick={() => navigate(-1)}
           className="text-black text-2xl font-raleway font-bold bg-yellow-400
-          rounded-2xl px-6 py-1 mt-2"
+          rounded-2xl px-6 py-1 mb-3"
         >
           Back
         </button>
-        <div className="flex justify-between w-[95%] h-full py-4">
+        <div className="flex justify-between w-[95%] h-max py-4">
           <img
             src={`https://starwars-visualguide.com/assets/img/characters/${
               character?.url.split('/')[5]
             }.jpg`}
             alt="Character-Avatar"
-            className="h-[700px] object-cover bg-white p-1"
+            className="h-[650px] object-cover bg-zinc-100 p-1 rounded-2xl"
           />
           <CharacterDescription
             homeworld={homeworld!}
             species={species!}
             character={character!}
           />
-          <div className="flex flex-col justify-between w-[50%] text-white">
+          <div className="flex flex-col justify-between w-[50%]">
             <div className={relatedStyle}>
               <p className={titleStyle}>Related Films</p>
               <div className="flex">
@@ -91,7 +92,7 @@ function AboutCharacter() {
               <p className={titleStyle}>Related Vehicles</p>
               <div
                 className={`flex ${
-                  allVehicles.length == 0 && 'justify-center'
+                  allVehicles.length === 0 && 'justify-center'
                 }`}
               >
                 {allVehicles.length !== 0 ? (
@@ -110,7 +111,7 @@ function AboutCharacter() {
               <p className={titleStyle}>Related Starships</p>
               <div
                 className={`flex ${
-                  allVehicles.length == 0 && 'justify-center'
+                  allStarships.length === 0 && 'justify-center'
                 }`}
               >
                 {allStarships.length !== 0 ? (

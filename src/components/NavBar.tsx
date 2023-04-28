@@ -1,35 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Link,
-  NavigateFunction,
-  useLocation,
-  useNavigate,
-} from 'react-router-dom';
+import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
 import { BiSearch } from 'react-icons/bi';
 import { useDispatch } from 'react-redux';
 
 import Logo from '../assets/imgs/star-wars-logo.png';
-import { ILocation } from '../models/models';
 import { searchSliceAction } from '../store/reducers/searchSlice';
 
 function NavBar() {
   const [search, setSearch] = useState<string>('');
 
-  const location: ILocation = useLocation();
   const navigate: NavigateFunction = useNavigate();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     search.length !== 0 && navigate('/search', { replace: true });
-    location.pathname !== '/search' && setSearch('');
 
     const timer = setTimeout(() => {
       dispatch(searchSliceAction.saveSearchData(search));
     }, 1500);
 
     return () => clearTimeout(timer);
-  }, [search, navigate, dispatch]);
+  }, [search]);
 
   return (
     <>

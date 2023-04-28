@@ -8,7 +8,9 @@ import CharactersCards from '../components/CharactersCards';
 function Search() {
   const searchVal = useSelector((store: RootType) => store.search);
 
-  const { data } = useGetSearchDataQuery(`people/?search=${searchVal}`);
+  const { data } = useGetSearchDataQuery(
+    `people/?search=${searchVal.length !== 0 ? searchVal : undefined}`
+  );
 
   return (
     <>
@@ -18,7 +20,7 @@ function Search() {
         items-center"
       >
         <div className="flex flex-col items-center w-[90%] py-6">
-          {data && data.results && <CharactersCards results={data!.results} />}
+          {data && <CharactersCards results={data.results} />}
         </div>
       </div>
     </>

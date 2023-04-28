@@ -16,8 +16,9 @@ interface ICharacterDes {
   species: string;
 }
 
-const typeStyle = 'text-2xl text-black font-droid font-bold mb-3';
-const characStyle = 'text-yellow-500 font-raleway capitalize ml-2';
+const typeStyle = `text-2xl text-black font-droid font-bold mb-3 flex 
+justify-between`;
+const characStyle = 'text-yellow-400 font-raleway capitalize ml-2';
 
 function CharacterDescription({
   homeworld,
@@ -29,17 +30,14 @@ function CharacterDescription({
 
   return (
     <>
-      <div
-        className="flex flex-col items-center text-white bg-white
-      py-8 px-2"
-      >
+      <div className="flex flex-col text-white bg-zinc-100 p-5 rounded-2xl">
         <p
-          className="text-3xl text-black font-bold font-droid pb-2 mb-6 
+          className="text-3xl text-black font-bold font-droid pb-2 mb-8 
         border-b-2 border-yellow-500"
         >
           Character Characteristic
         </p>
-        <div>
+        <div className="px-4">
           <p className={typeStyle}>
             Name: <span className={characStyle}>{character?.name}</span>
           </p>
