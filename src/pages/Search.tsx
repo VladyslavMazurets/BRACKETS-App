@@ -16,12 +16,22 @@ function Search() {
     <>
       <div
         className="bg-[url('/src/assets/imgs/stars-bg.jpg')] bg-center
-        bg-no-repeat bg-cover min-h-[83.9vh] h-max w-full flex justify-center
-        items-center"
+        bg-no-repeat bg-cover min-h-[83.9vh] h-max w-full flex items-center
+        justify-center"
       >
-        <div className="flex flex-col items-center w-[90%] py-6">
-          {data && <CharactersCards results={data.results} />}
-        </div>
+        {searchVal.length === 0 ? (
+          <p
+            className="text-5xl text-yellow-400 text-center font-raleway 
+          font-bold leading-[65px]"
+          >
+            The search field is empty.
+            <br /> Start your search by writing the hero&apos;s name
+          </p>
+        ) : (
+          <div className="flex flex-col items-center w-[90%] py-6">
+            {data && <CharactersCards results={data.results} />}
+          </div>
+        )}
       </div>
     </>
   );
