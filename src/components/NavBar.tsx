@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import Logo from '../assets/imgs/star-wars-logo.png';
 import { searchSliceAction } from '../store/reducers/searchSlice';
 
-const btnStyle = 'capitalize bg-yellow-500 px-6 py-1 rounded-full';
+import SearchFilter from './SearchFilter';
 
 function NavBar() {
   const [search, setSearch] = useState<string>('');
@@ -16,7 +16,9 @@ function NavBar() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    search.length !== 0 && navigate('/search', { replace: true });
+    search.length !== 0 &&
+      search.length === 1 &&
+      navigate('/search/people', { replace: true });
 
     const timer = setTimeout(() => {
       dispatch(searchSliceAction.saveSearchData(search));
@@ -56,21 +58,7 @@ function NavBar() {
           </button>
         </div>
       </div>
-      {search.length !== 0 && (
-        <div className="flex justify-center bg-black">
-          <div
-            className="w-[50%] flex justify-around text-black 
-            py-4 text-xl font-droid font-bold"
-          >
-            <button className={btnStyle}>films</button>
-            <button className={btnStyle}>people</button>
-            <button className={btnStyle}>planets</button>
-            <button className={btnStyle}>species</button>
-            <button className={btnStyle}>starships</button>
-            <button className={btnStyle}>vehicles </button>
-          </div>
-        </div>
-      )}
+      {search.length !== 0 && <SearchFilter />}
     </>
   );
 }
