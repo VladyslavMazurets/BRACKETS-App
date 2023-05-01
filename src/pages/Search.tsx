@@ -5,12 +5,24 @@ import { useParams } from 'react-router-dom';
 import { RootType } from '../store/store';
 import { useGetSearchDataQuery } from '../store/api/swapi';
 import CharactersCards from '../components/CharactersCards';
-import { IFilms, IPerson, IPlanet, ISpecies } from '../models/models';
+import {
+  IFilms,
+  IPerson,
+  IPlanet,
+  ISpecies,
+  IStarships,
+} from '../models/models';
 
 function Search() {
   const [filmCharacterIds, setFilmCharacterIds] = useState<string[]>([]);
   const [planetCharacterIds, setPlanetCharacterIds] = useState<string[]>([]);
   const [speciesCharacterIds, setSpeciesCharacterIds] = useState<string[]>([]);
+  const [vehiclesCharacterIds, setVehiclesCharacterIds] = useState<string[]>(
+    []
+  );
+  const [starshipsCharacterIds, setStarshipsCharacterIds] = useState<string[]>(
+    []
+  );
   const searchVal = useSelector((store: RootType) => store.search);
 
   const { endpoint } = useParams<string>();
@@ -50,6 +62,26 @@ function Search() {
         })
       );
       setSpeciesCharacterIds(newArr);
+    } else if (endpoint == 'starships' && isSuccess && data.results) {
+      const newArr: string[] = [];
+      data.results.map((item: IStarships) =>
+        item.pilots?.map((res) => {
+          if (!newArr.includes(res.split('/')[5])) {
+            newArr.push(res.split('/')[5]);
+          }
+        })
+      );
+      setStarshipsCharacterIds(newArr);
+    } else if (endpoint == 'vehicles' && isSuccess && data.results) {
+      const newArr: string[] = [];
+      data.results.map((item: IStarships) =>
+        item.pilots?.map((res) => {
+          if (!newArr.includes(res.split('/')[5])) {
+            newArr.push(res.split('/')[5]);
+          }
+        })
+      );
+      setVehiclesCharacterIds(newArr);
     }
   }, [endpoint, searchVal, isSuccess, data]);
 
@@ -66,6 +98,16 @@ function Search() {
   const filterSpeciesCharacters = useSelector((store: RootType) =>
     store.characters.filter((char) =>
       speciesCharacterIds.includes(char.url.split('/')[5])
+    )
+  );
+  const filterStarshipsCharacters = useSelector((store: RootType) =>
+    store.characters.filter((char) =>
+      starshipsCharacterIds.includes(char.url.split('/')[5])
+    )
+  );
+  const filterVehiclesCharacters = useSelector((store: RootType) =>
+    store.characters.filter((char) =>
+      vehiclesCharacterIds.includes(char.url.split('/')[5])
     )
   );
 
@@ -96,6 +138,12 @@ function Search() {
             )}
             {endpoint == 'species' && (
               <CharactersCards results={filterSpeciesCharacters} />
+            )}
+            {endpoint == 'starships' && (
+              <CharactersCards results={filterStarshipsCharacters} />
+            )}
+            {endpoint == 'vehicles' && (
+              <CharactersCards results={filterVehiclesCharacters} />
             )}
           </div>
         )}
