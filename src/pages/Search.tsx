@@ -5,10 +5,12 @@ import { useParams } from 'react-router-dom';
 import { RootType } from '../store/store';
 import { useGetSearchDataQuery } from '../store/api/swapi';
 import CharactersCards from '../components/CharactersCards';
-import { IFilms, IPerson } from '../models/models';
+import { IFilms, IPerson, IPlanet, ISpecies } from '../models/models';
 
 function Search() {
-  const [characterIds, setCharacterIds] = useState<string[]>([]);
+  const [filmCharacterIds, setFilmCharacterIds] = useState<string[]>([]);
+  const [planetCharacterIds, setPlanetCharacterIds] = useState<string[]>([]);
+  const [speciesCharacterIds, setSpeciesCharacterIds] = useState<string[]>([]);
   const searchVal = useSelector((store: RootType) => store.search);
 
   const { endpoint } = useParams<string>();
@@ -27,13 +29,43 @@ function Search() {
           }
         })
       );
-      setCharacterIds(newArr);
+      setFilmCharacterIds(newArr);
+    } else if (endpoint == 'planets' && isSuccess && data.results) {
+      const newArr: string[] = [];
+      data.results.map((item: IPlanet) =>
+        item.residents?.map((res) => {
+          if (!newArr.includes(res.split('/')[5])) {
+            newArr.push(res.split('/')[5]);
+          }
+        })
+      );
+      setPlanetCharacterIds(newArr);
+    } else if (endpoint == 'species' && isSuccess && data.results) {
+      const newArr: string[] = [];
+      data.results.map((item: ISpecies) =>
+        item.people?.map((res) => {
+          if (!newArr.includes(res.split('/')[5])) {
+            newArr.push(res.split('/')[5]);
+          }
+        })
+      );
+      setSpeciesCharacterIds(newArr);
     }
   }, [endpoint, searchVal, isSuccess, data]);
 
-  const filterCharacters = useSelector((store: RootType) =>
+  const filterFilmCharacters = useSelector((store: RootType) =>
     store.characters.filter((char) =>
-      characterIds.includes(char.url.split('/')[5])
+      filmCharacterIds.includes(char.url.split('/')[5])
+    )
+  );
+  const filterPlanetCharacters = useSelector((store: RootType) =>
+    store.characters.filter((char) =>
+      planetCharacterIds.includes(char.url.split('/')[5])
+    )
+  );
+  const filterSpeciesCharacters = useSelector((store: RootType) =>
+    store.characters.filter((char) =>
+      speciesCharacterIds.includes(char.url.split('/')[5])
     )
   );
 
@@ -53,16 +85,22 @@ function Search() {
           </p>
         ) : (
           <div className="flex flex-col items-center w-[90%] py-6">
-            {endpoint === 'people' ? (
+            {endpoint === 'people' && (
               <CharactersCards results={data.results} />
-            ) : (
-              <CharactersCards results={filterCharacters} />
+            )}
+            {endpoint == 'films' && (
+              <CharactersCards results={filterFilmCharacters} />
+            )}
+            {endpoint == 'planets' && (
+              <CharactersCards results={filterPlanetCharacters} />
+            )}
+            {endpoint == 'species' && (
+              <CharactersCards results={filterSpeciesCharacters} />
             )}
           </div>
         )}
       </div>
-      {console.log('SEARCH VAL:', searchVal)}
-      {console.log(filterCharacters)}
+      {console.log(data)}
     </>
   );
 }
