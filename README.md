@@ -11,7 +11,7 @@ In this program, I use the Redux Toolkit to store data about heroes and use it l
 ### In this project, i used:
 
 - ReactJS and TypeScript
-- Using Tailwindcss, React Router, React Icons, Redux Toolkit, ESLint & Prettier
+- Tailwindcss, React Router, React Icons, Redux Toolkit, ESLint & Prettier
 - Fetching data from using Rest API.
 
 Setup: run npm i && npm start - to start the development server
