@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
+import {
+  Link,
+  NavigateFunction,
+  useLocation,
+  useNavigate,
+  Location,
+} from 'react-router-dom';
 import { BiSearch } from 'react-icons/bi';
 import { useDispatch } from 'react-redux';
 
@@ -12,6 +18,7 @@ function NavBar() {
   const [search, setSearch] = useState<string>('');
 
   const navigate: NavigateFunction = useNavigate();
+  const location: Location = useLocation();
 
   const dispatch = useDispatch();
 
@@ -58,7 +65,7 @@ function NavBar() {
           </button>
         </div>
       </div>
-      {search.length !== 0 && <SearchFilter />}
+      {location.pathname.split('/')[1] == 'search' && <SearchFilter />}
     </>
   );
 }
