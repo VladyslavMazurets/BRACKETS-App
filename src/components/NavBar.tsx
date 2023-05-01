@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   Link,
   NavigateFunction,
@@ -16,11 +16,24 @@ import SearchFilter from './SearchFilter';
 
 function NavBar() {
   const [search, setSearch] = useState<string>('');
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const navigate: NavigateFunction = useNavigate();
   const location: Location = useLocation();
 
   const dispatch = useDispatch();
+
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      setSearch(event.currentTarget.value);
+    }
+  };
+
+  const handleSearch = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    dispatch(searchSliceAction.saveSearchData(search));
+  };
 
   useEffect(() => {
     search.length !== 0 &&
@@ -47,9 +60,11 @@ function NavBar() {
         <div className="w-full flex items-center justify-end mr-6">
           <form className="w-[350px] mr-4">
             <input
+              ref={inputRef}
               value={search}
               placeholder="Search Characters"
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(event) => setSearch(event.target.value)}
+              onKeyDown={handleKeyPress}
               className="w-full rounded-full px-6 py-2 border-4 border-white 
               focus:outline-none focus:border-yellow-500"
               required
@@ -57,7 +72,7 @@ function NavBar() {
           </form>
 
           <button
-            onClick={() => setSearch('')}
+            onClick={handleSearch}
             className="text-4xl 
         text-yellow-400 hover:text-white"
           >
