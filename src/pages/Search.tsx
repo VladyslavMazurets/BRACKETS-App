@@ -18,13 +18,24 @@ function Search() {
   );
 
   useEffect(() => {
-    endpoint == 'films' &&
-      isSuccess &&
-      data.results &&
+    if (endpoint == 'films' && isSuccess && data.results) {
+      const newArr: string[] = [];
       data.results.map((item: IFilms) =>
-        item.characters?.map((char) => console.log(char))
+        item.characters?.map((char) => {
+          if (!newArr.includes(char.split('/')[5])) {
+            newArr.push(char.split('/')[5]);
+          }
+        })
       );
+      setCharacterIds(newArr);
+    }
   }, [endpoint, searchVal, isSuccess, data]);
+
+  const filterCharacters = useSelector((store: RootType) =>
+    store.characters.filter((char) =>
+      characterIds.includes(char.url.split('/')[5])
+    )
+  );
 
   return (
     <>
@@ -45,12 +56,13 @@ function Search() {
             {endpoint === 'people' ? (
               <CharactersCards results={data.results} />
             ) : (
-              'hello'
+              <CharactersCards results={filterCharacters} />
             )}
           </div>
         )}
       </div>
       {console.log('SEARCH VAL:', searchVal)}
+      {console.log(filterCharacters)}
     </>
   );
 }
