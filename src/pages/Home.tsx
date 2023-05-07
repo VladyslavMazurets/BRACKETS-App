@@ -10,7 +10,7 @@ function Home() {
     <div
       className="bg-[url('/src/assets/imgs/stars-bg.jpg')] bg-center
     bg-no-repeat bg-cover h-[84.2vh] w-full flex justify-center items-center
-    min-[360px]:h-[87.8vh] md:h-[89vh]"
+    min-[360px]:h-[87.8vh] md:h-[89vh] xl:h-[84vh]"
     >
       <Link
         to="/pages/1"

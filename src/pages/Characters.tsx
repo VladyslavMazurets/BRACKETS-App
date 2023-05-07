@@ -9,7 +9,7 @@ import { charactersSliceAction } from '../store/reducers/charactersSlice';
 import CharactersCards from '../components/CharactersCards';
 
 const arrowStyle =
-  'text-5xl bg-yellow-400 p-2 rounded-full hover:bg-yellow-100';
+  'text-4xl bg-yellow-400 p-2 rounded-full hover:bg-yellow-100 xl:text-5xl';
 
 function Characters() {
   const { id } = useParams<string>();
@@ -22,6 +22,7 @@ function Characters() {
       dispatch(charactersSliceAction.saveCharactersData(data.results));
     }
   }, [data]);
+
   return (
     <>
       <div
@@ -47,7 +48,7 @@ function Characters() {
             )}
           </div>
 
-          {data && data.results && <CharactersCards results={data.results} />}
+          {data?.results && <CharactersCards results={data.results} />}
         </div>
       </div>
     </>
