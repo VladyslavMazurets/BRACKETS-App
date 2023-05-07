@@ -23,16 +23,13 @@ function NavBar() {
 
   const dispatch = useDispatch();
 
+  const isSearch = location.pathname.split('/')[1] == 'search';
+
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       event.preventDefault();
       setSearch(event.currentTarget.value);
     }
-  };
-
-  const handleSearch = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    dispatch(searchSliceAction.saveSearchData(search));
   };
 
   useEffect(() => {
@@ -50,15 +47,28 @@ function NavBar() {
   return (
     <>
       <div
-        className="flex justify-center bg-black w-full h-[150px] 
-      border-b-[1.5px] border-yellow-500"
+        className="flex items-center justify-center bg-black w-full h-max
+      border-b-[1.5px] border-yellow-500 xl:h-[150px]"
       >
-        <Link to="/" className="absolute py-6 w-max">
-          <img src={Logo} alt="Star-Wars" className="w-[300px]" />
+        <Link
+          to="/"
+          className={`${
+            isSearch && 'hidden'
+          } py-5 w-max md:block xl:block xl:absolute xl:top-0 xl:left-[50%] 
+          xl:py-6 xl:-translate-x-[50%]`}
+        >
+          <img src={Logo} alt="Star-Wars" className="w-[400px] xl:w-[300px]" />
         </Link>
 
-        <div className="w-full flex items-center justify-end mr-6">
-          <form className="w-[350px] mr-4">
+        <div
+          className={`${isSearch ? 'justify-center' : 'justify-end'} 
+        w-full flex items-centermr-6 md:justify-end`}
+        >
+          <form
+            className={`${
+              isSearch ? 'block py-6' : 'hidden'
+            } md:w-[350px] md:mr-4 md:block`}
+          >
             <input
               ref={inputRef}
               value={search}
@@ -71,16 +81,16 @@ function NavBar() {
             />
           </form>
 
-          <button
-            onClick={handleSearch}
-            className="text-4xl 
-        text-yellow-400 hover:text-white"
+          <Link
+            to="/search"
+            className={`${isSearch ? 'hidden' : 'block'} text-3xl 
+            text-yellow-400 mr-4 hover:text-white md:hidden md:text-4xl`}
           >
             <BiSearch />
-          </button>
+          </Link>
         </div>
       </div>
-      {location.pathname.split('/')[1] == 'search' && <SearchFilter />}
+      {isSearch && <SearchFilter />}
     </>
   );
 }
