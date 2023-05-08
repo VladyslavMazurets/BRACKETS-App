@@ -15,7 +15,7 @@ function SearchFilter() {
         <div
           className="flex text-black content-center
           overflow-x-scroll py-4 mx-2 text-xl font-droid font-bold 
-          xl:overflow-hidden xl:justify-around xl:w-1/2"
+          lg:overflow-hidden lg:justify-around 2xl:w-1/2"
         >
           {filterData.map((item) => (
             <NavLink

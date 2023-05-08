@@ -1,30 +1,41 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { RingLoader } from 'react-spinners';
 
 import { RootType } from '../store/store';
 import { useGetSearchDataQuery } from '../store/api/swapi';
 import CharactersCards from '../components/CharactersCards';
 import useFilter from '../customHooks/useFilter';
 
-const noDataStyle = `text-5xl text-yellow-400 text-center font-raleway 
-font-bold leading-[65px]`;
+const noDataStyle = `text-2xl text-yellow-400 text-center font-raleway mx-4
+font-bold xl:text-5xl xl:leading-[65px]`;
 
 function Search() {
   const { endpoint } = useParams<string>();
   const searchVal = useSelector((store: RootType) => store.search);
-  const { data } = useGetSearchDataQuery(
+  const { data, isLoading } = useGetSearchDataQuery(
     `${endpoint}/?search=${searchVal.length !== 0 ? searchVal : undefined}`
   );
 
   const filterCharacters = useFilter(endpoint!, searchVal);
 
+  isLoading && (
+    <div
+      className="bg-[url('/src/assets/imgs/stars-bg.jpg')] bg-center
+    bg-no-repeat bg-cover min-h-[82.8vh] h-max w-full flex items-center
+    justify-center xl:min-h-[76.1vh]"
+    >
+      <RingLoader color="text-yellow-400" />
+    </div>
+  );
+
   return (
     <>
       <div
         className="bg-[url('/src/assets/imgs/stars-bg.jpg')] bg-center
-        bg-no-repeat bg-cover min-h-[83.9vh] h-max w-full flex items-center
-        justify-center"
+        bg-no-repeat bg-cover min-h-[82.8vh] h-max w-full flex items-center
+        justify-center 2xl:min-h-[76.1vh]"
       >
         {searchVal.length === 0 ? (
           <p className={noDataStyle}>
@@ -47,6 +58,7 @@ function Search() {
           </div>
         )}
       </div>
+      {console.log(isLoading)}
     </>
   );
 }
