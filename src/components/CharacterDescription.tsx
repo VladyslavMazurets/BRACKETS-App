@@ -1,9 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
 
-import { useParams } from 'react-router-dom';
-
-import { RootType } from '../store/store';
 import {
   useGetPlanetsDataQuery,
   useGetSpeciesDataQuery,
@@ -16,8 +12,8 @@ interface ICharacterDes {
   species: string;
 }
 
-const typeStyle = `text-2xl text-black font-droid font-bold mb-3 flex 
-justify-between`;
+const typeStyle = `text-xl text-black font-droid font-bold mb-3 flex 
+justify-start md:text-2xl`;
 const characStyle = 'text-yellow-400 font-raleway capitalize ml-2';
 
 function CharacterDescription({
@@ -30,10 +26,13 @@ function CharacterDescription({
 
   return (
     <>
-      <div className="flex flex-col text-white bg-zinc-100 p-5 rounded-2xl">
+      <div
+        className="flex flex-col text-white bg-zinc-100 p-5 rounded-2xl 
+      mb-6 2xl:m-0"
+      >
         <p
-          className="text-3xl text-black font-bold font-droid pb-2 mb-8 
-        border-b-2 border-yellow-500"
+          className="text-2xl text-black text-center font-bold font-droid 
+          pb-2 mb-8 border-b-2 border-yellow-500 md:text-3xl"
         >
           Character Characteristic
         </p>

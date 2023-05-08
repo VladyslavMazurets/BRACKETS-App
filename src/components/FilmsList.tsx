@@ -11,7 +11,10 @@ function FilmsList({ item }: IItem) {
 
   return (
     <>
-      <div className="flex flex-col items-center mr-4 px-2 pb-2 last:mr-0">
+      <div
+        className="flex flex-col items-center mr-4 px-2 pb-6 
+      last:mr-0 md:pb-2"
+      >
         <img
           // eslint-disable-next-line max-len
           src={`https://starwars-visualguide.com/assets/img/films/${item}.jpg`}

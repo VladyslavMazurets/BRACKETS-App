@@ -82,7 +82,7 @@ function NavBar() {
           </form>
 
           <Link
-            to="/search"
+            to="/search/people"
             className={`${isSearch ? 'hidden' : 'block'} text-3xl 
             text-yellow-400 mr-4 hover:text-white md:hidden md:text-4xl`}
           >

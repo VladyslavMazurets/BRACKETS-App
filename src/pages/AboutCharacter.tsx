@@ -8,12 +8,12 @@ import FilmsList from '../components/FilmsList';
 import VehiclesList from '../components/VehiclesList';
 import StarshipsList from '../components/StarshipsList';
 
-const titleStyle = `text-3xl text-black font-bold font-droid py-1 mb-3 
-  border-b-2 border-yellow-500`;
-const relatedStyle = `flex flex-col text-center bg-zinc-100 rounded-2xl mb-2 
+const titleStyle = `text-2xl text-black font-bold font-droid py-1 mb-3 
+  border-b-2 border-yellow-500 md:text-3xl`;
+const relatedStyle = `flex flex-col text-center bg-zinc-100 rounded-2xl mb-6 
 last:m-0`;
-const noImgStyle = `text-black text-2xl font-droid font-semibold py-10
-  text-center`;
+const noImgStyle = `text-black text-xl font-droid font-semibold py-10
+  text-center md:text-2xl`;
 
 function AboutCharacter() {
   const [homeworld, setHomeWorld] = useState<string>();
@@ -55,8 +55,8 @@ function AboutCharacter() {
     <>
       <div
         className="bg-[url('/src/assets/imgs/stars-bg.jpg')] bg-center
-        bg-no-repeat bg-cover h-[83.8vh] w-full flex flex-col justify-center 
-        items-center"
+        bg-no-repeat bg-cover h-max w-full flex flex-col justify-center 
+        items-center pt-5 2xl:h-[84vh]"
       >
         <button
           onClick={() => navigate(-1)}
@@ -65,23 +65,27 @@ function AboutCharacter() {
         >
           Back
         </button>
-        <div className="flex justify-between w-[95%] h-max py-4">
+        <div
+          className="flex flex-col justify-center w-[90%] py-4 
+        md:w-[60%] lg:w-[40%] 2xl:w-[95%] 2xl:justify-between 2xl:flex-row"
+        >
           <img
             src={`https://starwars-visualguide.com/assets/img/characters/${
               character?.url.split('/')[5]
             }.jpg`}
             alt="Character-Avatar"
-            className="h-[650px] object-cover bg-zinc-100 p-1 rounded-2xl"
+            className="h-[500px] object-cover bg-zinc-100 p-1 rounded-2xl mb-12
+            md:h-[650px] lg:h-[500px] xl:h-[600px] 2xl:h-full"
           />
           <CharacterDescription
             homeworld={homeworld!}
             species={species!}
             character={character!}
           />
-          <div className="flex flex-col justify-between w-[50%]">
+          <div className="flex flex-col 2xl:justify-between 2xl:w-[50%]">
             <div className={relatedStyle}>
               <p className={titleStyle}>Related Films</p>
-              <div className="flex">
+              <div className="flex flex-wrap justify-center 2xl:flex-nowrap">
                 {allFilms.map((item) => (
                   <FilmsList key={item} item={item} />
                 ))}
@@ -91,9 +95,9 @@ function AboutCharacter() {
             <div className={relatedStyle}>
               <p className={titleStyle}>Related Vehicles</p>
               <div
-                className={`flex ${
+                className={`flex flex-wrap justify-center ${
                   allVehicles.length === 0 && 'justify-center'
-                }`}
+                } 2xl:flex-nowrap`}
               >
                 {allVehicles.length !== 0 ? (
                   allVehicles.map((item) => (
@@ -110,9 +114,9 @@ function AboutCharacter() {
             <div className={relatedStyle}>
               <p className={titleStyle}>Related Starships</p>
               <div
-                className={`flex ${
+                className={`flex flex-wrap justify-center ${
                   allStarships.length === 0 && 'justify-center'
-                }`}
+                } 2xl:justify-start`}
               >
                 {allStarships.length !== 0 ? (
                   allStarships.map((item) => (
